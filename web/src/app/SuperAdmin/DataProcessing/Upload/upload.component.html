@@ -1,0 +1,57 @@
+<side-menu></side-menu>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-12">
+            <h3>Company</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <select name="company" class="form-control" [(ngModel)]="company" (change)="changeCompany($event)"
+                    [value]="company">
+                    <option value="" disabled>Select Data Type</option>
+                    <option *ngFor="let cmp of companyList" [value]="cmp._id">{{cmp.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Upload Excel</label><br />
+        <input #fileInput id="fileInput" type="file" (change)="fileUpload(fileInput)" />
+        <!-- <small class="form-text text-muted">upload excel file</small> -->
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" (click)="submit()" *ngIf="!progressing">Submit</button>
+
+    <div class="mb-2 mt-2" *ngIf="progressing">
+        <progressbar class="progress-striped active" [value]="processingPercentage" type="danger" [animate]="true"
+            [striped]="true" [max]="100"><i>{{processingAction}} {{processingPercentage}}</i></progressbar>
+    </div>
+    <table class="table table-responsive mt-20">
+        <thead>
+            <tr>
+                <th>S No</th>
+                <th>File Name</th>
+                <th>Received On</th>
+                <th>Processed on</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of dataList; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data.fileDetails.metadata.name}}</td>
+                <td>{{data.fileDetails.metadata.recievedOn | date }}</td>
+                <td>{{data.fileDetails.metadata.processOn | date}}</td>
+                <td><i class="fa fa-download" (click)="downloadJSON(data);" aria-hidden="true"></i></td>
+            </tr>
+            <tr *ngIf="dataList?.length === 0">
+                <td colspan="4">No record found</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

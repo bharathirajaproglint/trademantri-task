@@ -1,0 +1,57 @@
+<side-menu></side-menu>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-8">
+            <h1>Company Source JSON</h1>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary" style="float: right;" (click)="downloadCompanyTemplateJSON()">Download
+                Template</button>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row mt-2">
+        <div class="col-12">
+            <h3>Company</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <select name="company" class="form-control" [(ngModel)]="company" (change)="changeCompany($event)"
+                    [value]="company">
+                    <option value="" disabled>Select Data Type</option>
+                    <option *ngFor="let cmp of companyList" [value]="cmp._id">{{cmp.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row mt-2">
+        <div class="col-12">
+            <h3>Columns</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6" *ngFor="let column of columns; let i = index">
+            <div class="card m-1">
+                <div class="card-body">
+                    <company-source-column-handler [columnName]="column.columnName" [dataType]="column.dataType"
+                        [sourceColumnName]="column.sourceColumnName" [index]="i"
+                        (updateFieldEmitter)="updateFieldEmitter($event)">
+                    </company-source-column-handler>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <button class="btn btn-success m-5" style="width: 100%;" (click)="updateAll()">Update</button>
+        </div>
+    </div>
+</div>

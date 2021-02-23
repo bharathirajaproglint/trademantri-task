@@ -1,0 +1,20 @@
+<div class="form-group">
+    <label>Column Name</label>
+    <input name="columnName" type="text" class="form-control" placeholder="Column Name" [(ngModel)]="columnName"
+        [value]="columnName" (keyup)="updateField($event)">
+</div>
+<div class="form-group">
+    <label>Data Type</label>
+    <select name="dataType" class="form-control" [(ngModel)]="dataType" (change)="updateField($event)"
+        [value]="dataType">
+        <option value="">Select Data Type</option>
+        <option value="String">String</option>
+        <option value="Number">Number</option>
+        <option value="Boolean">Boolean</option>
+        <option value="Date">Date</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <button class="btn btn-danger" (click)="deleteColumn()">Delete Record</button>
+</div>
